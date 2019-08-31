@@ -1,17 +1,16 @@
 // JS specific to image carousel
 // line of attack: make hidden all but the --active carousel__img element
+// NB. be careful to code for ANY number of images (we want generality)
 
-// start by grabbing essential nodes
+// start by grabbing essential target nodes
 const leftBtn = document.querySelector('.slider__button--left');
 const rightBtn = document.querySelector('.slider__button--right');
-const images = [...document.querySelectorAll('.slider__img')]; // returns an array of the img nodes
-const navBtns = [...document.querySelectorAll('.slider__nav-btn')]; // returns an array of navBtn nodes
-console.log(document.querySelectorAll('slider__nav-btn'));
-console.log(navBtns);
 
 // write first function, for moving to next image
-// be careful to code for ANY number of images (we want generality)
+
 const slideRight = function(event) {
+  let images = [...document.querySelectorAll('.slider__img')]; // returns an array of the img nodes
+  let navBtns = [...document.querySelectorAll('.slider__nav-btn')]; // returns an array of navBtn nodes
   if (event.target == rightBtn) { // proceed only if right button is clicked
     let activeImage = document.querySelector('.slider__img--active'); // select image currently shown
     let i = images.indexOf(activeImage); // index in array of images
@@ -36,7 +35,32 @@ const slideRight = function(event) {
 }
 
 // write second function, for moving to previous image
-// const slideLeft = function(event) {}
+const slideLeft = function(event) { // repeat the above function but logically inverted
+  let images = [...document.querySelectorAll('.slider__img')];
+  let navBtns = [...document.querySelectorAll('.slider__nav-btn')];
+  if (event.target == leftBtn) {
+    let activeImage = document.querySelector('.slider__img--active');
+    let i = images.indexOf(activeImage);
+    let n = images.length;
+    if (images[i-1]) {
+      let prevImage = images[i-1];
+      activeImage.setAttribute('hidden', true);
+      prevImage.removeAttribute('hidden');
+      activeImage.classList.remove('slider__img--active');
+      prevImage.classList.add('slider__img--active');
+      navBtns[i].classList.remove('slider__nav-btn--active');
+      navBtns[i-1].classList.add('slider__nav-btn--active');
+    } else {
+      let prevImage = images[n-1];
+      activeImage.setAttribute('hidden', true);
+      prevImage.removeAttribute('hidden')
+      activeImage.classList.remove('slider__img--active');
+      prevImage.classList.add('slider__img--active');
+      navBtns[i].classList.remove('slider__nav-btn--active');
+      navBtns[n-1].classList.add('slider__nav-btn--active');
+    }
+  }
+}
 
-addEventListener('click',slideRight); // remember not to call function when specifying it as handler!
-// addEventListener('click',slideLeft);
+addEventListener('click',slideRight); // remember not to call a function when specifying it as the event handler
+addEventListener('click',slideLeft);
