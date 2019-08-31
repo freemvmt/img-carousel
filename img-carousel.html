@@ -4,33 +4,36 @@
     <meta charset="UTF-8">
     <title>Vanilla JS Image Carousel: Testpiece</title>
     <script src="https://kit.fontawesome.com/36593718b0.js"></script>
-    <script type = "text/javascript" async="async" src="image-carousel.js"></script>
-		<link rel="stylesheet" type="text/css" href="image-carousel.css">
+    <script type = "text/javascript" async="async" src="img-carousel.js"></script>
+		<link rel="stylesheet" type="text/css" href="img-carousel.css">
   </head>
 
   <body>
 
     <div class="slider">
-      <div class="slider__container">
-        <button class="carousel__button carousel__button--left"></button>
-          <ul class="slider__list">
-            <li class="slider__list-item">
-              <img src="img/img1.jpg" alt="image 1" class="slider__img slider__img--active">
-            </li>
-            <li class="slider__list-item">
-              <img src="img/img2.jpg" alt="image 2" class="slider__img">
-            </li>
-            <li class="slider__list-item">
-              <img src="img/img3.jpg" alt="image 3" class="slider__img">
-            </li>
-          </ul>
-        <button class="carousel__button carousel__button--right"></button>
+
+      <div class="slider__shell">
+        <button class="fas fa-arrow-alt-circle-left slider__button slider__button--left"></button>
+        <ul class="slider__list">
+          <li class="slider__list-item">
+            <img src="img/img1.jpg" alt="Photo by Hu Chen on Unsplash" class="slider__img">
+          </li>
+          <li class="slider__list-item">
+            <img src="img/img2.jpg" alt="Photo by Robert Baker on Unsplash" class="slider__img slider__img--active">
+          </li>
+          <li class="slider__list-item">
+            <img src="img/img3.jpg" alt="Photo by Cindy Chen on Unsplash" class="slider__img">
+          </li>
+        </ul>
+        <button class="fas fa-arrow-alt-circle-right slider__button slider__button--right"></button>
       </div>
+
       <div class="slider__nav">
         <button class="slider__nav-btn slider__nav-btn--active"></button>
         <button class="slider__nav-btn"></button>
         <button class="slider__nav-btn"></button>
       </div>
+
     </div>
 
 

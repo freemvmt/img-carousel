@@ -1,47 +1,84 @@
-.slider {
+/* have attempted to write carousel stylesheet in BEM-consistent fashion */
 
+.slider {
+  position: relative; /* set relative so descendants with position: absolute refer to overall container */
+  height: 800px;
+  width: 80%;
+  margin: 10px auto;
 }
 
-.slider__container {
-
+.slider__shell {
+  position: relative;
+  overflow: hidden; /* stop images spilling out of container */
+  width: 100%; /* make shell fill parent container */
+  height: 100%;
+  padding: 0;
+  border: 5px solid black;
+  background: rgb(0, 0, 0, 0.25); /* set grey background in case images smaller than container */
 }
 
 .slider__button {
-
+  position: absolute; /* buttons will be positioned relative to shell */
+  font-size: 3em; /* style the font awesome arrows */
+  color: gold;
+  background-color: transparent; /* lose the <button> look */
+  border: 0;
+  height: 100%; /* make buttons fill container vertically */
+  width: 10%;
+  top: 50%; /* put button (almost) at vertical centre of slider */
+  transform: translateY(-50%); /* move buttons up by half their own height to correct placement */
+  z-index: 99; /* make sure buttons are on top of everything (except page nav/portfolio bars) */
 }
 
 .slider__button--left {
-
+  left: 0;
 }
 
 .slider__button--right {
-
+  right: 0;
 }
 
 .slider__list {
-
+  list-style: none; /* remove bullet points */
+  padding: 0;
+  margin: 0;
 }
 
 .slider__list-item {
-
+  /* don't think any styling necessary here */
 }
 
 .slider__img {
-
+  object-fit: none; /*  keep original image size/aspect ratio */
+  width: 100%;
+  height: 100%;
 }
 
+/* this modifier will be applied to whichever image is currently being shown */
 .slider__img--active {
-
+  z-index: 90; /* on top - but not on top of the buttons! */
 }
 
 .slider__nav {
-
+  padding: 10px 0;
+  height: 20px;
+  width: 100%;
+  display: flex; /* use flexbox to automagic nav-btn placement */
+  justify-content: center;
 }
 
 .slider__nav-btn {
-
+  background-color: black;
+  width: 30px;
+  height: 30px;
+  z-index: 99;
+  border: 0; /* lose the <button> look again */
+  border-radius: 50%; /* make buttons circular */
+  opacity: 0.3; /* show which button is pressed by opacity */
+  margin: 0 5px; /* separate the buttons out horizontally */
 }
 
+/* this modifier can be swapped between buttons to indicate which image is being viewed */
 .slider__nav-btn--active {
-
+  opacity: 0.8;
 }
