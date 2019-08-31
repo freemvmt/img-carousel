@@ -7,7 +7,6 @@ const leftBtn = document.querySelector('.slider__button--left');
 const rightBtn = document.querySelector('.slider__button--right');
 
 // write first function, for moving to next image
-
 const slideRight = function(event) {
   let images = [...document.querySelectorAll('.slider__img')]; // returns an array of the img nodes
   let navBtns = [...document.querySelectorAll('.slider__nav-btn')]; // returns an array of navBtn nodes
@@ -35,7 +34,8 @@ const slideRight = function(event) {
 }
 
 // write second function, for moving to previous image
-const slideLeft = function(event) { // repeat the above function but logically inverted
+// can just repeat the above function but logically inverted
+const slideLeft = function(event) {
   let images = [...document.querySelectorAll('.slider__img')];
   let navBtns = [...document.querySelectorAll('.slider__nav-btn')];
   if (event.target == leftBtn) {
@@ -62,5 +62,36 @@ const slideLeft = function(event) { // repeat the above function but logically i
   }
 }
 
-addEventListener('click',slideRight); // remember not to call a function when specifying it as the event handler
+// attach these functions as handlers to click events
+// remember not to call a function when specifying it as the event handler
+addEventListener('click',slideRight);
 addEventListener('click',slideLeft);
+
+// write function which shows img corresponding to nav-btn clicked on
+const nav = function(event) {
+  let images = [...document.querySelectorAll('.slider__img')];
+  let navBtns = [...document.querySelectorAll('.slider__nav-btn')];
+  if (navBtns.includes(event.target)) { // only proceed if target is a nav-btn
+    let i = navBtns.indexOf(event.target); // get index of nav-btn clicked on
+    let target = navBtns[i]; // obviously target == event.target
+    let classLengths = navBtns.map(x => x.classList.length);
+    // use number of classes of each nav-btn to determine if active or inactive
+    if (classLengths[i]>1) { // if button clicked is already active
+      return null; // do nothing
+    } else { // else button clicked is not active, and nor is the corresponding image
+      let a = classLengths.indexOf(2); // get index of active button (and image)
+      let activeBtn = navBtns[a]; // we could use querySelector but this is more fun
+      let activeImage = images[a];
+      let newImage = images[i];
+      activeBtn.classList.remove('slider__nav-btn--active'); // make active button inactive
+      target.classList.add('slider__nav-btn--active'); // make targeted button active
+      activeImage.setAttribute('hidden', true); // then image adjustments as before
+      newImage.removeAttribute('hidden');
+      activeImage.classList.remove('slider__img--active');
+      newImage.classList.add('slider__img--active');
+    }
+  }
+}
+
+// finally we attach nav function to another event handler for clicks
+addEventListener('click',nav);
